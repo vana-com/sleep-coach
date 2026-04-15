@@ -25,9 +25,10 @@ export async function POST(request: NextRequest) {
       connectToken: session.connectToken,
     });
   } catch (err) {
-    console.error("[connect-session]", err);
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[connect-session]", message);
     return NextResponse.json(
-      { error: "Failed to create connect session" },
+      { error: message },
       { status: 500 },
     );
   }
